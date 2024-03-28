@@ -29,39 +29,29 @@ size_t binary_tree_size(const binary_tree_t *tree)
  */
 int binary_tree_is_complete(const binary_tree_t *tree)
 {
-	binary_tree_t **nodes_queue, *tmp;
-	int currentProcessed = 0, currentAdded = 0, sz;
-	int incompleteFound = 0;
+	binary_tree_t *nodes_queue[10000], *tmp;
+	int front = 0, rear = 0;
+	int foundNull = 0;
 
 	if (!tree)
 	{
 		return (1);
 	}
-	sz = binary_tree_size(tree);
-	nodes_queue = malloc(sizeof(binary_tree_t *) * sz);
-	nodes_queue[currentAdded++] = (binary_tree_t *)tree;
-	while (currentProcessed < sz)
+	nodes_queue[rear++] = (binary_tree_t *)tree;
+	while (front != rear)
 	{
-		tmp = nodes_queue[currentProcessed++];
-		if (incompleteFound && (tmp->left != NULL || tmp->right != NULL))
+		tmp = nodes_queue[front++];
+		if (tmp == NULL)
+			foundNull = 1;
+		else
 		{
-			free(nodes_queue);
-			return (0);
+			if (foundNull)
+			{
+				return (0);
+			}
+			nodes_queue[rear++] = tmp->left;
+			nodes_queue[rear++] = tmp->right;
 		}
-		if (tmp->left == NULL  && tmp->right != NULL)
-		{
-			free(nodes_queue);
-			return (0);
-		}
-		else if (tmp->left != NULL && tmp->right == NULL)
-			incompleteFound = 1;
-		else if (tmp->left == NULL || tmp->right == NULL)
-			incompleteFound = 1;
-		if (tmp->left)
-			nodes_queue[currentAdded++] = tmp->left;
-		if (tmp->right)
-			nodes_queue[currentAdded++] = tmp->right;
 	}
-	free(nodes_queue);
 	return (1);
 }
