@@ -55,7 +55,7 @@ int binary_tree_is_complete(const binary_tree_t *tree)
 		}
 		else if (tmp->left != NULL && tmp->right == NULL)
 			incompleteFound = 1;
-		else if (tmp->left == NULL && tmp->right == NULL)
+		else if (tmp->left == NULL || tmp->right == NULL)
 			incompleteFound = 1;
 		if (tmp->left)
 			nodes_queue[currentAdded++] = tmp->left;
