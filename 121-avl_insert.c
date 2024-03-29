@@ -34,16 +34,16 @@ void fix_balance(avl_t **tree, int value)
 avl_t *avl_insert(avl_t **tree, int value)
 {
 	avl_t *new_node = binary_tree_node(NULL, value);
+	avl_t *current;
+	avl_t *parent;
 
 	if (!new_node)
 		return (NULL);
 
 	if (!*tree)
 		return (*tree = new_node, new_node);
-
-	avl_t *current = *tree;
-	avl_t *parent = NULL;
-
+	current = *tree;
+	parent = NULL;
 	while (current)
 	{
 		parent = current;
