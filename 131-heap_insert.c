@@ -1,7 +1,7 @@
 #include "binary_trees.h"
 
 /**
- * binary_tree_node - Creates a binary tree node
+ * binary_tree_node2 - Creates a binary tree node
  * @parent: Pointer to the parent node of the node to create
  * @value: Value to put in the new node
  *
@@ -24,7 +24,7 @@ binary_tree_t *binary_tree_node2(binary_tree_t *parent, int value)
 	return (new_node);
 }
 /**
- * binary_tree_size - Measures the size of a binary tree
+ * binary_tree_size2 - Measures the size of a binary tree
  * @tree: Pointer to the root node of the tree to measure
  *
  * Return: Size of the tree, 0 if tree is NULL
