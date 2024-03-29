@@ -1,6 +1,25 @@
 #include "binary_trees.h"
 
 /**
+ * binary_tree_size - Measures the size of a binary tree
+ * @tree: Pointer to the root node of the tree to measure
+ *
+ * Return: Size of the tree, 0 if tree is NULL
+ */
+size_t binary_tree_size(const binary_tree_t *tree)
+{
+	size_t size = 0;
+
+	if (tree == NULL)
+		return (0);
+
+	size += binary_tree_size(tree->left);
+	size += binary_tree_size(tree->right);
+
+	return (size + 1);
+}
+
+/**
  * heap_insert - inserts a value in Max Binary Heap
  * @root: double pointer to the root node of the Heap to insert the value
  * @value: the value to store in the node to be inserted
@@ -15,9 +34,9 @@ heap_t *heap_insert(heap_t **root, int value)
 	int tmp;
 
 	if (!root)
-		return NULL;
+		return (NULL);
 	if (!*root)
-		return *root = binary_tree_node(NULL, value);
+		return (*root = binary_tree_node(NULL, value));
 
 	tree = *root;
 	size = binary_tree_size(tree);
@@ -38,24 +57,7 @@ heap_t *heap_insert(heap_t **root, int value)
 		flip->parent->n = tmp;
 		new = new->parent;
 	}
-	return new;
+	return (new);
 }
 
-/**
- * binary_tree_size - Measures the size of a binary tree
- * @tree: Pointer to the root node of the tree to measure
- *
- * Return: Size of the tree, 0 if tree is NULL
- */
-size_t binary_tree_size(const binary_tree_t *tree)
-{
-	size_t size = 0;
 
-	if (tree == NULL)
-		return (0);
-
-	size += binary_tree_size(tree->left);
-	size += binary_tree_size(tree->right);
-
-	return (size + 1);
-}
