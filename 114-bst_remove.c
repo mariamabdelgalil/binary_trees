@@ -24,32 +24,45 @@ bst_t *min_val(bst_t *root)
  */
 bst_t *bst_remove(bst_t *root, int value)
 {
-	bst_t *tmp = NULL;
+	bst_t *holder = NULL;
 
 	if (!root)
 		return (NULL);
-	if (value < root->n)
+
+	if (root->n > value)
 		root->left = bst_remove(root->left, value);
-	else if (value > root->n)
-		root->right = bst_remove(root->right, value);
 	else
-	{
-		if (!root->left)
+		if (root->n < value)
+			root->right = bst_remove(root->right, value);
+		else
 		{
-			tmp = root->right;
-			free(root);
-			return (tmp);
+			if (root->left && root->right)
+			{
+				holder = min_val(root->right);
+				root->n = holder->n;
+				root->right = bst_remove(root->right, holder->n);
+			}
+			else
+			{
+				if (!root->left && !root->right)
+				{
+					free(root);
+					return (NULL);
+				}
+				holder = root;
+				if (!root->left)
+					root = root->right;
+				else
+					if (!root->right)
+						root = root->left;
+				if (holder->parent->left == holder)
+					holder->parent->left = root;
+				else
+					holder->parent->right = root;
+				root->parent = holder->parent;
+				free(holder);
+			}
 		}
-		else if (!root->right)
-		{
-			tmp = root->left;
-			free(root);
-			return (tmp);
-		}
-		tmp = min_val(root->right);
-		root->n = tmp->n;
-		root->right = bst_remove(root->right, tmp->n);
-	}
 	return (root);
 }
 
