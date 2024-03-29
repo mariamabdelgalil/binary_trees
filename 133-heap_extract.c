@@ -32,6 +32,8 @@
 		size /= 2; \
 	}
 
+#define MAX(n1, n2) ((n1) > (n2) ? (n1) : (n2))
+
 /**
  * swap - swaps two nodes in binary tree
  * @a: first node
@@ -117,18 +119,7 @@ heap_t *swap_head(heap_t *head, heap_t *node)
 	return (head);
 }
 
-/**
- * MAX - max
- * @n1: n1
- * @n2: n2
- * Return: max
- */
-int MAX(int n1, int n2)
-{
-	if (n1 > n2)
-		return (n1);
-	return (n2);
-}
+
 /**
  * perc_down - percolate head into correct position
  * @node: pointer to head
