@@ -96,5 +96,5 @@ int binary_tree_is_heap(const binary_tree_t *tree)
 {
 	if (!tree)
 		return (0);
-	return (btih_helper(tree));
+	return (binary_tree_is_heap_helper(tree));
 }
